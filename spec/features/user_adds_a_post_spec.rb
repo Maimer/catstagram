@@ -33,4 +33,18 @@ feature "user adds a post", %q{
 
     expect(page).to have_content "There were some errors with your Post."
   end
+
+  scenario "user adds a post with valid attributes" do
+    user = FactoryGirl.create(:user)
+    sign_in_as(user)
+
+    visit new_post_path
+    # This is the new line where we're using the `attach_file` method from
+    # Capybara to simulate uploading a file.
+    attach_file 'Image', File.join(Rails.root, '/spec/fixtures/sleeping_cat.jpeg')
+    fill_in "Description", with: "Sleeping cat"
+    click_on "Create Post"
+
+    expect(page).to have_content "Post created successfully."
+  end
 end
