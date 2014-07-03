@@ -18,7 +18,7 @@ feature "user views posts index", %q{
 
     visit root_path
 
-    expect(page).to have_image post3.image.filename
+    expect(page).to have_image post2.image.filename
     expect(post2.description).to appear_before post3.description
 
     expect(page).to have_image post3.image.filename
