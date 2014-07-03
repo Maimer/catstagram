@@ -3,5 +3,5 @@ Rails.application.routes.draw do
 
   root 'pages#index'
 
-
+  resources :posts, only: [:new, :create]
 end
