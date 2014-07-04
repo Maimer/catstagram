@@ -5,6 +5,8 @@ RSpec.describe User, :type => :model do
 
     it { should have_many(:posts).dependent(:destroy) }
 
+    it { should have_many(:meows).dependent(:destroy) }
+
     describe "#password" do
       subject { FactoryGirl.build(:user) }
       it { expect(subject).to be_valid }
