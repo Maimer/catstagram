@@ -6,6 +6,8 @@ RSpec.describe User, :type => :model do
     it { should have_many(:posts).dependent(:destroy) }
 
     describe "#password" do
+      subject { FactoryGirl.build(:user) }
+      it { expect(subject).to be_valid }
       it { should have_valid(:password).when("abcd1234", "asd^2jk@%#&!!") }
       it { should_not have_valid(:password).when("abcd123", nil, "") }
     end
