@@ -41,3 +41,24 @@ describe "#has_meow_from?" do
     expect(post).to_not have_meow_from user
   end
 end
+
+describe "#meow_from" do
+  context "User has a Meow for given Post" do
+    it "returns that instance of Meow" do
+      meow = FactoryGirl.create(:meow)
+      post = meow.post
+      user = meow.user
+
+      expect(post.meow_from(user)).to eq meow
+    end
+  end
+
+  context "User doesn't have a Meow for given Post" do
+    it "returns nil" do
+      user = FactoryGirl.create(:user)
+      post = FactoryGirl.create(:post)
+
+      expect(post.meow_from(user)).to eq nil
+    end
+  end
+end
