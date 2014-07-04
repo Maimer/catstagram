@@ -27,6 +27,7 @@ end
 describe "#has_meow_from?" do
   it "returns true if given user has already created a meow for post" do
     user = FactoryGirl.create(:user)
+    post = FactoryGirl.create(:post)
     meow = FactoryGirl.create(:meow, user: user, post: post)
 
     expect(post).to have_meow_from user
@@ -34,6 +35,7 @@ describe "#has_meow_from?" do
 
   it "returns false if given user has not already created a meow for post" do
     user = FactoryGirl.create(:user)
+    post = FactoryGirl.create(:post)
     meow = FactoryGirl.create(:meow, post: post)
 
     expect(post).to_not have_meow_from user
