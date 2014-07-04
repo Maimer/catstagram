@@ -8,8 +8,9 @@ class MeowsController < ApplicationController
 
     respond_to do |format|
       if meow.save
+        meows = post.meows.count
         format.html { redirect_to :back, notice: "We heard your Meow!" }
-        format.json { render json: meow }
+        format.json { render json: { meow: meow, meows: meows } }
       else
         format.html { redirect_to :back }
         format.json { render json: meow.errors, status: :unprocessable_entity }
@@ -18,7 +19,11 @@ class MeowsController < ApplicationController
   end
 
   def destroy
+    post = Meow.find(params[:id]).post
+
     current_user.meows.destroy(params[:id])
+
+    meows = post.meows.count
 
     respond_to do |format|
     # Respond the same way we were before if the request format is html
@@ -29,7 +34,7 @@ class MeowsController < ApplicationController
 
     # Respond with a "204 No Content" to signify that the request has been
     # fulfilled
-    format.json { head :no_content }
+    format.json { render json: meows }
   end
   end
 end
