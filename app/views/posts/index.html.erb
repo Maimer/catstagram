@@ -2,7 +2,9 @@
 
 <% @posts.each do |post| %>
   <%= image_tag post.image.url %>
-  <p><%= pluralize post.meows.count, "Meow" %></p>
-  <%= button_to "Meow", post_meows_path(post), method: :post %>
+  <%= pluralize(post.meows.count, 'Meow') %>
+  <% unless post.has_meow_from?(current_user) %>
+    <%= button_to "Meow", post_meows_path(post), method: :post %>
+  <% end %>
   <p><%= post.description %></p>
 <% end %>

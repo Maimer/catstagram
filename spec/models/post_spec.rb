@@ -23,3 +23,19 @@ describe ".by_recency" do
     expect(Post.by_recency).to eq [newest, middle, oldest]
   end
 end
+
+describe "#has_meow_from?" do
+  it "returns true if given user has already created a meow for post" do
+    user = FactoryGirl.create(:user)
+    meow = FactoryGirl.create(:meow, user: user, post: post)
+
+    expect(post).to have_meow_from user
+  end
+
+  it "returns false if given user has not already created a meow for post" do
+    user = FactoryGirl.create(:user)
+    meow = FactoryGirl.create(:meow, post: post)
+
+    expect(post).to_not have_meow_from user
+  end
+end
